@@ -1,14 +1,14 @@
 # Beacon Digest
 
-Here you can find the fortnightly issues of Beacon Digest. 
+Here you can find the fortnightly issues of Beacon Digest.
 
-## Issues 
+## Issues
 
 - [May 24th]() + [source](https://github.com/SHSR2001/beacondigest/blob/main/notebooks/beacondigest_24thMay.ipynb)
 
-## Running the notebooks 
+## Running the notebooks
 
-Start of by running the following commands in your terminal 
+Start of by running the following commands in your terminal
 
 ```bash
 git clone https://github.com/SHSR2001/beacondigest
@@ -26,6 +26,8 @@ source env/bin/activate
 ###
 
 pip install -r requirements.txt
+
+jupyter labextension install jupyterlab-plotly@4.14.3
 ```
 
 Run the following command once you enter the shell
@@ -33,4 +35,4 @@ Run the following command once you enter the shell
 ```bash
 jupyter lab
 ```
-You can now run any notebook of your choice to reporoduce the results 
+You can now run any notebook of your choice to reproduce the results
