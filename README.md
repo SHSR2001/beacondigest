@@ -4,7 +4,7 @@ Here you can find the fortnightly issues of Beacon Digest.
 
 ## Issues
 
-- [May 24th]() + [source](https://github.com/SHSR2001/beacondigest/blob/main/notebooks/beacondigest_24thMay.ipynb)
+- [May 24th](https://github.com/SHSR2001/beacondigest/blob/main/notebooks/2021/05/24/digest.html) + [source](https://github.com/SHSR2001/beacondigest/blob/main/notebooks/2021/05/24/digest.ipynb)
 
 ## Running the notebooks
 
