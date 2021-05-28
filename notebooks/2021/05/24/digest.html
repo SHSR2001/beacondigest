@@ -3,12 +3,12 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>beacondigest_24thMay</title><script src="../static/underscore.min.js"></script>
-  <script src="../static/react.development.js"></script>
-  <script src="../static/react-dom.development.js"></script>
-  <script src="../static/component-library.js"></script>
-  <script src="../static/header.js"></script>
-  <script src="../static/footer.js"></script>
+<title>digest</title><script src="/beacondigest/static/underscore.min.js"></script>
+  <script src="/beacondigest/static/react.development.js"></script>
+  <script src="/beacondigest/static/react-dom.development.js"></script>
+  <script src="/beacondigest/static/component-library.js"></script>
+  <script src="/beacondigest/static/header.js"></script>
+  <script src="/beacondigest/static/footer.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
@@ -14262,7 +14262,7 @@ a.anchor-link {
     init_mathjax();
     </script>
     <!-- End of mathjax configuration -->
-  <link rel="stylesheet" type="text/css" href="../static/index.css"/>
+  <link rel="stylesheet" type="text/css" href="/beacondigest/static/index.css"/>
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
@@ -14272,6 +14272,24 @@ a.anchor-link {
     e(Header, null),
     document.querySelector("#header")
   );
+  const hamburger = document.querySelector(".hamburger");
+  const navMenu = document.querySelector(".nav-menu");
+
+  function mobileMenu() {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("active");
+  }
+
+  function closeMenu() {
+      hamburger.classList.remove("active");
+      navMenu.classList.remove("active");
+  }
+
+  hamburger.addEventListener("click", mobileMenu);
+
+  const navLink = document.querySelectorAll(".nav-link");
+
+  navLink.forEach(n => n.addEventListener("click", closeMenu));
   </script>
   <div class="article-container">
     <div class="document-container">
@@ -15269,9 +15287,9 @@ let authorData = ["shyam"];
     })
     </script>
   </div>
-  <script src="../static/authorFormatting.js"></script>
-  <script src="../static/sectionFormatting.js"></script>
-  <script src="../static/referencesFormatting.js"></script>
+  <script src="/beacondigest/static/authorFormatting.js"></script>
+  <script src="/beacondigest/static/sectionFormatting.js"></script>
+  <script src="/beacondigest/static/referencesFormatting.js"></script>
 
 
 
