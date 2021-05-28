@@ -1381,6 +1381,20 @@ class AuthorBarnabe extends React.Component {
   }
 }
 
+class AuthorShyam extends React.Component {
+  render() {
+    return (
+      e(
+        AuthorComponent, {
+          name: "Shyam Sridhar",
+          affiliation: "Ethereum Foundation, Robust Incentives Group",
+          link: "https://github.com/shsr2001"
+        }
+      )
+    )
+  }
+}
+
 class AuthorFred extends React.Component {
   render() {
     return (
@@ -1430,6 +1444,7 @@ class AuthorBlock extends React.Component {
               author => {
                 if (author == "sacha") return e(AuthorSacha)
                 else if (author == "barnabe") return e(AuthorBarnabe)
+                else if (author == "shyam") return e(AuthorShyam)
                 else if (author == "aditya") return e(AuthorAditya)
                 else if (author == "fred") return e(AuthorFred)
                 else return e(AuthorComponent, { author: author })
