@@ -1,4 +1,5 @@
 .ipynb_checkpoints
-fortnightly-blog-posts/api_key.txt
+api_key.txt
 venv
 .DS_Store
+.vscode/
