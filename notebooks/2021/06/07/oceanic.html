@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Oceanic Games in PoS Ethereum staking</title>
+  
+  
+  
+  
+  <meta property="og:title" content="Oceanic Games in PoS Ethereum staking" />
+  <meta property="og:url" content="https://ethereum.github.io/beacondigest/notebooks/2021/06/07/oceanic.html" />
+  <meta property="og:image" content="https://shsr2001.github.io/static/og_image.png" />
+  <meta property="og:description" content="Exploring oceanic games in PoS Ethereum" />
+
+  <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js" type="text/javascript"></script>
+  <script src="https://ethereum.github.io/rig/static/react.development.js"></script>
+  <script src="https://ethereum.github.io/rig/static/react-dom.development.js"></script>
+  <script src="https://ethereum.github.io/rig/static/component-library.js"></script>
+  <script src="https://ethereum.github.io/rig/static/header.js"></script>
+  <script src="https://ethereum.github.io/rig/static/footer.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+
+
+
+
+
+<style type="text/css">
+    pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: var(--jp-cell-editor-active-background) }
+.highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
+.highlight .c { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment */
+.highlight .err { color: var(--jp-mirror-editor-error-color) } /* Error */
+.highlight .k { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword */
+.highlight .o { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator */
+.highlight .p { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation */
+.highlight .ch { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Single */
+.highlight .cs { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Special */
+.highlight .kc { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Type */
+.highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
+.highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
+.highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
+.highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
+.highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
+.highlight .mh { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Hex */
+.highlight .mi { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer */
+.highlight .mo { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Oct */
+.highlight .sa { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Affix */
+.highlight .sb { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Backtick */
+.highlight .sc { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Char */
+.highlight .dl { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Delimiter */
+.highlight .sd { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Doc */
+.highlight .s2 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Double */
+.highlight .se { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Escape */
+.highlight .sh { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Heredoc */
+.highlight .si { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Interpol */
+.highlight .sx { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Other */
+.highlight .sr { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Regex */
+.highlight .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */
+.highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
+.highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
+  </style>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://ethereum.github.io/rig/static/jupyter.css"/>
+<link rel="stylesheet" type="text/css" href="https://ethereum.github.io/rig/static/theme-light.css"/>
+<style type="text/css">
+a.anchor-link {
+   display: none;
+}
+.highlight  {
+    margin: 0.4em;
+}
+
+/* Input area styling */
+.jp-InputArea {
+    overflow: hidden;
+}
+
+.jp-InputArea-editor {
+    overflow: hidden;
+}
+
+@media print {
+  body {
+    margin: 0;
+  }
+}
+</style>
+
+
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML-full,Safe"> </script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                },
+                "HTML-CSS": {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                }
+            });
+        
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    <!-- End of mathjax configuration -->
+  <link rel="stylesheet" type="text/css" href="https://ethereum.github.io/rig/static/index.css"/>
+</head>
+<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+  <div id="header"></div>
+  <script>
+    ReactDOM.render(
+      e(Header, null),
+      document.querySelector("#header")
+    );
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    function mobileMenu() {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    }
+
+    function closeMenu() {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+    }
+
+    hamburger.addEventListener("click", mobileMenu);
+
+    const navLink = document.querySelectorAll(".nav-link");
+
+    navLink.forEach(n => n.addEventListener("click", closeMenu));
+  </script>
+  <div class="article-container">
+    <div class="document-container">
+      <div class="title-container">
+        <div class="title">
+          Oceanic games in PoS Ethereum
+        </div>
+
+        <div class="sub-title">
+          
+        </div>
+      </div>
+
+      <div id="toc-author-block">
+        <div id="authors"></div>
+        <div id="toc"></div>
+      </div>
+      
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>In this issue of Beacondigest, in addition to our recurring analysis of network metrics we also aim to analyze startegic considerations in the setting of Proof-of-Stake PoS Ethereum Staking through the concept of Oceanic Games<span class="reference bibliography" refid="milnor1978values"></span>. The notion was first put forth by J.W Milnor and L.S Shapley in 1978. It has since then been used to study decision-making strategies especially in weighted voting systems. The concept was adapted to Blockchain mining by researchers Nikos Leonardos, Stefanos Leonardos and Georgios Piliouras in their paper <em>Oceanic Games: Centralization Risks and Incentives in Blockchain Mining</em><span class="reference bibliography" refid="leonardos2020oceanic"></span>.</p>
+<p>In this notebook we extend this analysis to Eth staking to estimate the values per unit resources for major staking "entities".</p>
+<p>The outline of this notebook is as follows:</p>
+<ul>
+<li>We start off by presenting the Oceanic Games model and define all relevant terms.</li>
+<li>We then apply the concepts in the setting of Ethereum staking and present our results.</li>
+<li>We finally conclude by listing some shortcomings of this notebook and our analysis.</li>
+</ul>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="An-Introduction-to-Oceanic-Games">An Introduction to Oceanic Games<a class="anchor-link" href="#An-Introduction-to-Oceanic-Games">&#182;</a></h2>
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The first question we aim to answer is, what are oceanic games? In the context of corporate governance, they are a class of games that involve two types of players:</p>
+<ol>
+<li>Large players, also known as "atomic players", who own a significant portion of the company's total shares</li>
+<li>An <em>ocean</em> of "non-atomic" players that each own an infinitesimal portion of the company's total shares.</li>
+</ol>
+<p>The main focus while analyzing such games is to measure the value of a resource per unit resource. <span style="color: red">resource per unit resource?</span></p>
+<p>As seen in a lot of literature <span class="reference bibliography" refid="leonardos2020oceanic aumann1964markets shapiro1978values shitovitz1973oligopoly"></span> the <em>value</em> of a resource has a lot more to it than just the amount of resource that are in one's possession.</p>
+<p>For example, in the context of Blockchain mining: Consider a party having access to 51% of all mining resources vs one having access to 49% of all mining resources. While the difference is only 2%, the possession in the first case is more <em>valuable</em> as now the party has complete control over the Blockchain. This can be extended to the case where many miners collude with each other: If a miner has access to 49% of all mining resources and another miner 2%, their combined possession is worth more than in the first miner had access to only 47% of the total resources.</p>
+<p>Thus the aim of our analysis is to measure the <strong>value of resources</strong> needed for staking on the Beacon Chain <strong>per unit resource</strong> for major staking entities and the ocean of small validators.</p>
+<p>These major staking entities can be thought of as PoS parallels to mining pools under Proof-of-Work (PoW).</p>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Introducing-the-Oceanic-Games-Model">Introducing the Oceanic Games Model<a class="anchor-link" href="#Introducing-the-Oceanic-Games-Model">&#182;</a></h2>
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Without going too much into the technical details, here is the overview of the Oceanic Games model:</p>
+<ul>
+<li><p><strong>Stakers</strong>: They refer to the block proposers and validators that take part in the PoS consensus after making their initial deposit of 32 ETH. Stakers are made up of two important components:</p>
+<ul>
+<li>Major Stakers: A <em>set</em> of entities that control a significant portion of the ETH staked on the beacon chain, </li>
+<li>The Ocean: An <em>interval</em> of infinitesimal stakers.</li>
+</ul>
+</li>
+<li><p><strong>Resources</strong>: Refers to the native cryptocurrency (ETH) deposited by stakers to take part in PoS consensus. In our analysis we measure resources in terms of the fraction of staked ether that an entity controls.</p>
+</li>
+</ul>
+<ul>
+<li><strong>Majority Quota</strong>: A common notion in weighted voting systems, in our context it refers to the minimum amount resources controlled by a single entity to raise an alert. We assume the quota of our oceanic game is 0.33, as a single entity controlling more than 1/3rd of the resources could mean that they could bring about a great deal of harm to the protocol if they wish to. (Read: <a href="https://www.talentica.com/blogs/why-bft-protocols-cannot-have-13-dishonest-parties/">https://www.talentica.com/blogs/why-bft-protocols-cannot-have-13-dishonest-parties/</a>)</li>
+</ul>
+<ul>
+<li><strong>Values</strong>: Under this current model, we aim to calculate a value for each major staker and the entirety of the ocean. Without going into the mathematical details, we can think of the value of a staker $i$, $v_i$, as the probability that, that staker will be the crucial entity to turn a random coalition of stakers from losing (total resources of the coalition without $i$ are less than $q$) to winning (total resources of the coalition with $i$ are equal to or greater than $q$) <span class="reference bibliography" refid="shapiro1978values"></span>.</li>
+</ul>
+<ul>
+<li><strong>Value per unit resource</strong>: As the name suggests, it is simply the value of a staker divided by his resources!</li>
+</ul>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Analysis">Analysis<a class="anchor-link" href="#Analysis">&#182;</a></h2>
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now for the interesting portion of the notebook, applying the model on Ethereum PoS consensus! The first step would be to identify the stakers, both the major stakers and the ocean as well as the resources they possess.</p>
+<p>But the first stage, as always, is data collection. We collect data pertaining to the eth1 deposits made by the first 163400 validators who were activated using <a href="https://beaconcha.in/api/v1/docs/index.html">beaconcha.in's API</a>. We then identify which entities control large portions of the total ETH staked on the Beacon Chain</p>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<details><summary>Input 1 (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Import all the modules </span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s2">&quot;plotly&quot;</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;plotly_mimetype+notebook_connected&quot;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<details><summary>Input &nbsp; (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">validator_staking</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<details><summary>Input &nbsp; (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;api_key.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">api_file</span><span class="p">:</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">api_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">163399</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">str1</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">99</span><span class="p">):</span>
+        <span class="n">str1</span> <span class="o">=</span> <span class="n">str1</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span>
+    
+    <span class="n">str1</span> <span class="o">=</span> <span class="n">str1</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">99</span><span class="p">)</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://beaconcha.in/api/v1/validator/</span><span class="si">{}</span><span class="s1">/deposits?api_key=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">api_key</span><span class="p">))</span>
+    <span class="c1">#Add a sleep to stay within the call rate limits</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">validator_staking</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;from_address&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">validator_staking</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;from_address&#39;</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">validator_staking</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;from_address&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<details><summary>Input &nbsp; (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;api_key.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">api_file</span><span class="p">:</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">api_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    
+<span class="n">x</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://beaconcha.in/api/v1/validator/</span><span class="si">{}</span><span class="s1">/deposits?api_key=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">163400</span><span class="p">,</span> <span class="n">api_key</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+<span class="k">if</span><span class="p">(</span><span class="n">validator_staking</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;from_address&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">validator_staking</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;from_address&#39;</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">validator_staking</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;from_address&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<details><summary>Input &nbsp; (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># #Writing the dictionaries to csv files</span>
+
+<span class="c1"># with open(&#39;staking_pools.csv&#39;,&#39;w&#39;) as result_file:</span>
+<span class="c1">#     wr = csv.writer(result_file, dialect=&#39;excel&#39;)</span>
+<span class="c1">#     for key, value in validator_staking.items():</span>
+<span class="c1">#         wr.writerow([key,value])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<details><summary>Input 14 (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;staking_pools.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;address&quot;</span><span class="p">,</span><span class="s2">&quot;stake&quot;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;percentage_stake&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;stake&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;stake&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">/</span><span class="mi">163400</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>28934
+0.1770746634026928
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>At this point, we see a very interesting result! When we look into the wallet addresses of the deposit contracts that were used to activate 163400 validators, we notice that only 28934 distinct wallet addresses activated these validators. This means that only about <strong>17.7%</strong> of these deposits were made by unique addresses.</p>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<details><summary>Input 22 (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sorted_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;percentage_stake&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sorted_df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)))</span>
+<span class="n">sorted_df</span> <span class="o">=</span> <span class="n">sorted_df</span><span class="p">[</span><span class="n">sorted_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="c1">#print(sorted_df.head(n=6))</span>
+<span class="c1">#print(13.911047+2.176371+1.582760+1.488614+1.223292+1.050894)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>       ID            stake  percentage_stake
+3345    1  728160000000000          0.139110
+5012    2  113920000000000          0.021764
+2479    3   82848000000000          0.015828
+9722    4   77920000000000          0.014886
+1153    5   64032000000000          0.012233
+4824    6   55008000000000          0.010509
+601     7   48768000000000          0.009317
+5870    8   48736000000000          0.009311
+4789    9   45120000000000          0.008620
+22874  10   44192000000000          0.008443
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The above table captures the 10 wallet addresses arranged in the descending order of the percentage of staked ether they possess. [The addresses have not been displayed for the sake of the privacy of these entities]. We consider the first 6 entities to be atomic players or major stakers since they control more than 1% of all the ETH staked. The remaining ones are considered to be oceanic.</p>
+<p>Out of these 6 entities, only 2 have public tags to their wallet address from which we can deduce which institution they represent. The first one that controls 13.9% is the US-based exchange Kraken, and the third largest one that controls about 1.58% of the network belongs to the financial institution Bitcoin Suisse.</p>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Using this intial distribution we can now try and estimate the values per unit resource for the 6 major staking entities and the entirety of the ocean. For this, we first used the publicly available <a href="http://homepages.warwick.ac.uk/~ecaae/ssocean.html">ssocean software</a> to find the ssindices of the atomic and non-atomic player and we finally divide this by the amount of resources they each possess to find their values per unit resource.</p>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<details><summary>Input 2 (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ss_index</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.161317</span><span class="p">,</span><span class="mf">0.021623</span><span class="p">,</span><span class="mf">0.015633</span><span class="p">,</span><span class="mf">0.014690</span><span class="p">,</span><span class="mf">0.012041</span><span class="p">,</span><span class="mf">0.010327</span><span class="p">,</span><span class="mf">0.764370</span><span class="p">]</span>
+<span class="n">resource_percentage</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.139110</span><span class="p">,</span><span class="mf">0.021764</span><span class="p">,</span><span class="mf">0.015828</span><span class="p">,</span><span class="mf">0.014886</span><span class="p">,</span><span class="mf">0.012233</span><span class="p">,</span><span class="mf">0.010509</span><span class="p">,</span><span class="mf">0.785700</span><span class="p">]</span>
+
+<span class="n">value_per_unit_resource</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+    <span class="n">value_per_unit_resource</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ss_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">resource_percentage</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+<span class="n">x_axis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<details><summary>Input 3 (click to open)</summary>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span>
+    <span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">subplot_titles</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Value per unit resource&quot;</span><span class="p">,</span> <span class="s2">&quot;Percentage of resource owned by entities&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">value_per_unit_resource</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Value per unit resource&quot;</span><span class="p">),</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">r</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">resource_percentage</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Percentage of resource&quot;</span><span class="p">),</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Big stakers and the ocean: statistics&quot;</span>   
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">tickmode</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">tickvals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">ticktext</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Largest staker&quot;</span><span class="p">,</span> <span class="s2">&quot;2nd largest&quot;</span><span class="p">,</span> <span class="s2">&quot;3rd&quot;</span><span class="p">,</span> <span class="s2">&quot;4th&quot;</span><span class="p">,</span> <span class="s2">&quot;5th&quot;</span><span class="p">,</span> <span class="s2">&quot;6th&quot;</span><span class="p">,</span> <span class="s2">&quot;Ocean&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">tickmode</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">tickvals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">ticktext</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Largest staker&quot;</span><span class="p">,</span> <span class="s2">&quot;2nd largest&quot;</span><span class="p">,</span> <span class="s2">&quot;3rd&quot;</span><span class="p">,</span> <span class="s2">&quot;4th&quot;</span><span class="p">,</span> <span class="s2">&quot;5th&quot;</span><span class="p">,</span> <span class="s2">&quot;6th&quot;</span><span class="p">,</span> <span class="s2">&quot;Ocean&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</details>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+        <script type="text/javascript">
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        if (typeof require !== 'undefined') {
+        require.undef("plotly");
+        requirejs.config({
+            paths: {
+                'plotly': ['https://cdn.plot.ly/plotly-latest.min']
+            }
+        });
+        require(['plotly'], function(Plotly) {
+            window._Plotly = Plotly;
+        });
+        }
+        </script>
+        
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>                            <div id="c8702a62-3771-4bf5-9bdd-89c2d3be9385" class="plotly-graph-div" style="height:500px; width:1000px;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("c8702a62-3771-4bf5-9bdd-89c2d3be9385")) {                    Plotly.newPlot(                        "c8702a62-3771-4bf5-9bdd-89c2d3be9385",                        [{"name": "Value per unit resource", "type": "scatter", "x": [1, 2, 3, 4, 5, 6, 7], "xaxis": "x", "y": [1.1596362590755516, 0.9935214115052381, 0.9876800606520093, 0.9868332661561199, 0.9843047494482138, 0.9826815110857361, 0.972852233676976], "yaxis": "y"}, {"name": "Percentage of resource", "type": "scatter", "x": [1, 2, 3, 4, 5, 6, 7], "xaxis": "x2", "y": [13.911000000000001, 2.1763999999999997, 1.5827999999999998, 1.4886, 1.2233, 1.0509, 78.57], "yaxis": "y2"}],                        {"annotations": [{"font": {"size": 16}, "showarrow": false, "text": "Value per unit resource", "x": 0.225, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}, {"font": {"size": 16}, "showarrow": false, "text": "Percentage of resource owned by entities", "x": 0.775, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}], "height": 500, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": "Big stakers and the ocean: statistics"}, "width": 1000, "xaxis": {"anchor": "y", "domain": [0.0, 0.45], "tickmode": "array", "ticktext": ["Largest staker", "2nd largest", "3rd", "4th", "5th", "6th", "Ocean"], "tickvals": [1, 2, 3, 4, 5, 6, 7]}, "xaxis2": {"anchor": "y2", "domain": [0.55, 1.0], "tickmode": "array", "ticktext": ["Largest staker", "2nd largest", "3rd", "4th", "5th", "6th", "Ocean"], "tickvals": [1, 2, 3, 4, 5, 6, 7]}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0]}, "yaxis2": {"anchor": "x2", "domain": [0.0, 1.0]}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('c8702a62-3771-4bf5-9bdd-89c2d3be9385');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Hence, the results clearly reveal that the higher the resource, the higher the value per unit resource which is consistent with the findings of [2].</p>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Limitations-of-the-Notebook">Limitations of the Notebook<a class="anchor-link" href="#Limitations-of-the-Notebook">&#182;</a></h2>
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>1) We make an assumption that among 163400 the number of deactivated validators are minimal and are negligible. In reality there have been about 140 validators who have successfully exited and another 140 who have been slashed. Thus they make up close to 0.17% of the total population of the validators we've considered</p>
+<p>2) In this notebook, we classify "entities" based on their eth1 address. In reality however it can be possible that a single entity can make deposits with more than one eth1 address. The logical next step to this analysis is to identify all the addresses that belong to a single entity and further aggregate them. We will do so in the subsequent notebooks.</p>
+
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Acknowledgements">Acknowledgements<a class="anchor-link" href="#Acknowledgements">&#182;</a></h2>
+</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>A huge thank you to <a href="https://twitter.com/barnabemonnot?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Barnabé Monnot</a> for all his very valuable insights and suggestions and his continued support for Beacon Digest.</p>
+<p>Another huge thank you to Stefanos Leonardos and Georgios Piliouras for intriducing me to the idea of Oceanic Games and its applications in Blockchains.</p>
+<p>I'd also like to express my gratitude to the team at The University of Warwick for making their software <a href="https://homepages.warwick.ac.uk/~ecaae/ssocean.html">ssocean</a> free and open source</p>
+
+</div>
+
+
+
+
+    </div>
+  </div>
+  <script>
+  // References + footnotes
+let referenceData = {
+    milnor1978values: {
+        title: "Values of large games II: Oceanic games",
+        author: "Milnor, John Willard and Shapley, Lloyd S",
+        publisher: "Mathematics of operations research 3(4), 290-307",
+        year: "1978"
+    },
+    leonardos2020oceanic: {
+        title: "Oceanic games: Centralization risks and incentives in blockchain mining",
+        author: "Leonardos, Nikos and Leonardos, Stefanos and Piliouras, Georgios",
+        publisher: "Mathematical Research for Blockchain Economy, Springer",
+        year: "2020",
+        url: "https://arxiv.org/abs/1904.02368"
+    },
+    aumann1964markets: {
+        title: "Markets with a continuum of traders",
+        author: "Aumann, Robert J",
+        publisher: "Econometrica: Journal of the Econometric Society",
+        year: "1964"
+    },
+    shapiro1978values: {
+        title: "Values of large games, I: a limit theorem",
+        author: "Shapiro, Norman Zalmon and Shapley, Lloyd S",
+        publisher: "Mathematics of Operations Research 3(1), 1-9",
+        year: "1978"
+    },
+    shitovitz1973oligopoly: {
+        title: "Oligopoly in markets with a continuum of traders",
+        author: "Shitovitz, Benyamin",
+        publisher: "Econometrica: Journal of the Econometric Society",
+        year: "1973"
+    }
+};
+
+// Authors
+let authorData = ["shyam"];
+  </script>
+
+  
+</body>
+
+  <div id="footer"></div>
+    <script>
+    ReactDOM.render(
+      e(
+        Footer, {
+          acknowledgements: '',
+        }
+      ),
+      document.querySelector("#footer")
+    )
+
+    const copyToClipboard = str => {
+      const el = document.createElement("textarea") // Create a <textarea> element
+      el.value = str // Set its value to the string that you want copied
+      el.setAttribute("readonly", "") // Make it readonly to be tamper-proof
+      el.style.position = "absolute"
+      el.style.left = "-9999px" // Move outside the screen to make it invisible
+      document.body.appendChild(el) // Append the <textarea> element to the HTML document
+      const selected =
+        document.getSelection().rangeCount > 0 // Check if there is any content selected previously
+          ? document.getSelection().getRangeAt(0) // Store selection if found
+          : false // Mark as false to know no selection existed before
+      el.select() // Select the <textarea> content
+      document.execCommand("copy") // Copy - only works as a result of a user action (e.g. click events)
+      document.body.removeChild(el) // Remove the <textarea> element
+      if (selected) {
+        // If a selection existed before copying
+        document.getSelection().removeAllRanges() // Unselect everything on the HTML document
+        document.getSelection().addRange(selected) // Restore the original selection
+      }
+    }
+    function handleCopyClick(evt) {
+      // get the children of the parent element
+      const { children } = evt.target.parentElement
+      // grab the first element (we append the copy button on afterwards, so the first will be the code element)
+      // destructure the innerText from the code block
+      const { innerText } = Array.from(children)[0]
+      // copy all of the code to the clipboard
+      copyToClipboard(innerText)
+    }
+
+    const highlights = document.querySelectorAll(".jp-InputArea-editor .highlight")
+
+    highlights.forEach(div => {
+      // create the copy button
+      const copy = document.createElement("button")
+      copy.innerHTML = "Copy"
+      // add the event listener to each click
+      copy.addEventListener("click", handleCopyClick)
+      // append the copy button to each code block
+      div.append(copy)
+    })
+    </script>
+  </div>
+  <script src="https://ethereum.github.io/rig/static/authorFormatting.js"></script>
+  <script src="https://ethereum.github.io/rig/static/sectionFormatting.js"></script>
+  <script src="https://ethereum.github.io/rig/static/referencesFormatting.js"></script>
+
+
+
+
+
+
+
+</html>
