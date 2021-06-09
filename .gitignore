@@ -3,3 +3,4 @@ api_key.txt
 venv
 .DS_Store
 .vscode/
+env/
