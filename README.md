@@ -1,6 +1,6 @@
 # Beacon Digest
 
-Here you can find the fortnightly issues of Beacon Digest.
+Here you can find the fortnightly issues of Beacon Digest. These are open research notebooks that explore the depths of the Beacon Chain
 
 ## Issues
 
