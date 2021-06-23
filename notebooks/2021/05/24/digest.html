@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -725,14 +725,14 @@ block_count
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We thus see that the number of blocks produced is between 31-32 for most epochs, indicating an overall healthy network.</p>
-<p>However, they were around 5 epochs for which this value fell to 29 and one epoch (at around 38900) for which this value fell down to 28. But all in all a minimum value of 28 for this metric is a sign of an overall well performing network of validators.</p>
+<p>However, there were around 5 epochs for which this value fell to 29 and one epoch (at around 38900) for which this value fell down to 28. But all in all a minimum value of 28 for this metric is a sign of an overall well performing network of validators.</p>
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Participation-rate">Participation rate<a class="anchor-link" href="#Participation-rate">&#182;</a></h2>
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>In the Ethereum Proof-of-Stake protocol, every validator is expected to submit their attestation once every epoch. However, they might be many different reasons because of which validators might fail to do so, such as validators going offline for long periods of time.</p>
+<p>In the Ethereum Proof-of-Stake protocol, every validator is expected to submit their attestation once every epoch. However, there might be many different reasons because of which validators might fail to do so, such as validators going offline for long periods of time.</p>
 <p>The network participation rate can be defined as the percentage of staked ether which sends in their attestations in a timely manner when called to do so. This is a very important metric with a high value indicating that the network is healthy and a low value hinting at a range of issues form software bugs to latency issues.</p>
 <p>This <a href="https://pintail.xyz/posts/medalla-validator-taxonomy">blog post</a> by <a href="https://twitter.com/pintail_xyz">pintail</a> lists some reasons for which the network participation rate might be low.</p>
 <p>We now look at the network participation statistics for this range of epochs. In our dataset, percentages are represented as fractions.</p>
@@ -869,7 +869,7 @@ maximum: 0.997489095
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The next metric that we explore in this notebook is the number of validators who voluntarily exited the network.</p>
 <p>A validator who performs a voluntary exit is one who chooses to voluntarily stop performing their validator duties (proposing blocks and attesting to blocks).</p>
-<p>A validator can initiate a voluntary exit provided that the validator is currently active, has not been slashed and has been active for at least 256 epochs (~27 hours) since it has been activated</p>
+<p>A validator can initiate a voluntary exit provided that the validator is currently active, has not been slashed and has been active for at least 256 epochs (~27 hours) since it has been activated.</p>
 <p>It takes at a minimum 5 epochs (32 minutes) for a validator to exit after initiating a voluntary exit. This number can be much higher depending on how many other validators are queued to exit.</p>
 <p>(reference: <a href="https://lighthouse-book.sigmaprime.io/voluntary-exit.html">https://lighthouse-book.sigmaprime.io/voluntary-exit.html</a>)</p>
 
@@ -938,7 +938,7 @@ maximum: 0.997489095
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Thus we can see that in the range of epochs 38320 - 39120, there has been only no voluntary exists by any validator</p>
+<p>Thus, we can see that in the range of epochs 38320 - 39120, there has been only no voluntary exists by any validator</p>
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -946,8 +946,8 @@ maximum: 0.997489095
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The final metric that we explore in this notebook is the number of deposits made in that epoch.</p>
-<p>If a validator makes a deposit of at least 32ETH, he then gets added into the activtion queue. Once the validator reaches the end of the activation queue he gets activated and is assigned to a committee and can begin attesting/proposing blocks.</p>
-<p>Thus looking at the deposits count per epoch gives us an idea of the number of new validators activated over time.</p>
+<p>If a validator makes a deposit of at least 32ETH, he then gets added into the activation queue. Once the validator reaches the end of the activation queue he gets activated and is assigned to a committee and can begin attesting/proposing blocks.</p>
+<p>Thus, looking at the deposits count per epoch gives us an idea of the number of new validators activated over time.</p>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <details><summary>Input 13 (click to open)</summary>
