@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -194,7 +194,7 @@ a.anchor-link {
       </div>
       
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>In this issue of Beacondigest, in addition to our recurring analysis of network metrics we also aim to analyze startegic considerations in the setting of Proof-of-Stake PoS Ethereum Staking through the concept of Oceanic Games<span class="reference bibliography" refid="milnor1978values"></span>. The notion was first put forth by J.W Milnor and L.S Shapley in 1978. It has since then been used to study decision-making strategies especially in weighted voting systems. The concept was adapted to Blockchain mining by researchers Nikos Leonardos, Stefanos Leonardos and Georgios Piliouras in their paper <em>Oceanic Games: Centralization Risks and Incentives in Blockchain Mining</em><span class="reference bibliography" refid="leonardos2020oceanic"></span>.</p>
+<p>In this issue of Beacondigest, in addition to our recurring analysis of network metrics we also aim to analyze strategic considerations in the setting of Proof-of-Stake Ethereum Staking through the concept of Oceanic Games<span class="reference bibliography" refid="milnor1978values"></span>. The notion was first put forth by J.W Milnor and L.S Shapley in 1978. It has since then been used to study decision-making strategies especially in weighted voting systems. The concept was adapted to Blockchain mining by researchers Nikos Leonardos, Stefanos Leonardos and Georgios Piliouras in their paper <em>Oceanic Games: Centralization Risks and Incentives in Blockchain Mining</em><span class="reference bibliography" refid="leonardos2020oceanic"></span>.</p>
 <p>In this notebook we extend this analysis to Eth staking to estimate the values per unit resources for major staking "entities".</p>
 <p>The outline of this notebook is as follows:</p>
 <ul>
@@ -210,13 +210,13 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The first question we aim to answer is, what are oceanic games? In the context of corporate governance, they are a class of games that involve two types of players:</p>
 <ol>
-<li>Large players, also known as "atomic players", who own a significant portion of the company's total shares</li>
+<li>Large players, also known as "atomic players", who own a significant portion of the company's total shares.</li>
 <li>An <em>ocean</em> of "non-atomic" players that each own an infinitesimal portion of the company's total shares.</li>
 </ol>
 <p>The main focus while analyzing such games is to measure the value of an entity for each unit of resource given the distribution of resources among shareholders.</p>
-<p>As seen in a lot of literature <span class="reference bibliography" refid="leonardos2020oceanic aumann1964markets shapiro1978values shitovitz1973oligopoly"></span> the <em>value</em> of a resource has a lot more to it than just the amount of resource that are in one's possession.</p>
-<p>For example, in the context of Blockchain mining: Consider a party having access to 51% of all mining resources vs one having access to 49% of all mining resources. While the difference is only 2%, the possession in the first case is more <em>valuable</em> as now the party has complete control over the Blockchain. This can be extended to the case where many miners collude with each other: If a miner has access to 49% of all mining resources and another miner 2%, their combined possession is worth more than in the first miner had access to only 47% of the total resources.</p>
-<p>Thus the aim of our analysis is to measure the <strong>value of resources</strong> needed for staking on the Beacon Chain <strong>per unit resource</strong> for major staking entities and the ocean of small validators.</p>
+<p>As seen commonly in scientific literature <span class="reference bibliography" refid="leonardos2020oceanic aumann1964markets shapiro1978values shitovitz1973oligopoly"></span> the <em>value</em> of a resource has a lot more to it than just the amount of resource that are in one's possession.</p>
+<p>For example, in the context of Blockchain mining: Consider a party having access to 51% of all mining resources vs one having access to 49% of all mining resources. While the difference is only 2%, the possession in the first case is more <em>valuable</em> as now the party has complete control over the Blockchain. This can be extended to the case where many miners collude with each other: If a miner has access to 49% of all mining resources and another miner 2%, their combined possession is worth more than if the first miner had access to only 47% of the total resources.</p>
+<p>Thus, the aim of our analysis is to measure the <strong>value of resources</strong> needed for staking on the Beacon Chain <strong>per unit resource</strong> for major staking entities and the ocean of small validators.</p>
 <p>These major staking entities can be thought of as PoS parallels to mining pools under Proof-of-Work (PoW).</p>
 
 </div>
@@ -228,11 +228,11 @@ a.anchor-link {
 <ul>
 <li><p><strong>Stakers</strong>: They refer to the block proposers and validators that take part in the PoS consensus after making their initial deposit of 32 ETH. Stakers are made up of two important components:</p>
 <ul>
-<li>Major Stakers: A <em>set</em> of entities that control a significant portion of the ETH staked on the beacon chain, </li>
+<li>Major Stakers: A <em>set</em> of entities that control a significant portion of the ETH staked on the beacon chain. </li>
 <li>The Ocean: An <em>interval</em> of infinitesimal stakers.</li>
 </ul>
 </li>
-<li><p><strong>Resources</strong>: Refers to the native cryptocurrency (ETH) deposited by stakers to take part in PoS consensus. In our analysis we measure resources in terms of the fraction of staked ether that an entity controls.</p>
+<li><p><strong>Resources</strong>: Refers to the native cryptocurrency (ETH) deposited by stakers to take part in PoS consensus. In our analysis, we measure resources in terms of the fraction of staked ether that an entity controls.</p>
 </li>
 </ul>
 <ul>
@@ -242,7 +242,7 @@ a.anchor-link {
 <li><strong>Values</strong>: Under this current model, we aim to calculate a value for each major staker and the entirety of the ocean. Without going into the mathematical details, we can think of the value of a staker $i$, $v_i$, as the probability that, that staker will be the crucial entity to turn a random coalition of stakers from losing (total resources of the coalition without $i$ are less than $q$) to winning (total resources of the coalition with $i$ are equal to or greater than $q$) <span class="reference bibliography" refid="shapiro1978values"></span>.</li>
 </ul>
 <ul>
-<li><strong>Value per unit resource</strong>: As the name suggests, it is simply the value of a staker divided by his resources!</li>
+<li><strong>Value per unit resource</strong>: As the name suggests, it is simply the value of a staker divided by their resources!</li>
 </ul>
 
 </div>
@@ -476,7 +476,7 @@ a.anchor-link {
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Using this intial distribution we can now try and estimate the values per unit resource for the 6 major staking entities and the entirety of the ocean. For this, we first used the publicly available <a href="http://homepages.warwick.ac.uk/~ecaae/ssocean.html">ssocean software</a> to find the ssindices of the atomic and non-atomic player and we finally divide this by the amount of resources they each possess to find their values per unit resource.</p>
+<p>Using this initial distribution we can now try and estimate the values per unit resource for the 6 major staking entities and the entirety of the ocean. For this, we first used the publicly available <a href="http://homepages.warwick.ac.uk/~ecaae/ssocean.html">ssocean software</a> to find the ssindices of the atomic and non-atomic player and we finally divide this by the amount of resources they each possess to find their values per unit resource.</p>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <details><summary>Input 7 (click to open)</summary>
@@ -632,7 +632,7 @@ if (outputEl) {{
 <h3 id="Limitations-of-the-Notebook">Limitations of the Notebook<a class="anchor-link" href="#Limitations-of-the-Notebook">&#182;</a></h3>
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>1) We make an assumption that among 163400 the number of deactivated validators are minimal and are negligible. In reality there have been about 140 validators who have successfully exited and another 140 who have been slashed. Thus they make up close to 0.17% of the total population of the validators we've considered</p>
+<p>1) We make an assumption that among 163400 the number of deactivated validators are minimal and are negligible. In reality there have been about 140 validators who have successfully exited and another 140 who have been slashed. Thus they make up close to 0.17% of the total population of the validators we've considered.</p>
 <p>2) In this notebook, we classify "entities" based on their eth1 address. In reality however it can be possible that a single entity can make deposits with more than one eth1 address. The logical next step to this analysis is to identify all the addresses that belong to a single entity and further aggregate them. We will do so in the subsequent notebooks.</p>
 
 </div>
@@ -640,7 +640,7 @@ if (outputEl) {{
 <h2 id="The-Beacon-Chain-Digest---June-8th">The Beacon Chain Digest - June 8th<a class="anchor-link" href="#The-Beacon-Chain-Digest---June-8th">&#182;</a></h2>
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We also continue our running analysis of the Beacon Chain through the lens of our metrics 5 metrics. In this notebook, we take a look at epochs 39121 - 42211 ( May 24th, 8:54AM GMT to June 7th, 2:30AM GMT). As always we start off with collecting data and processing the data.</p>
+<p>We also continue our running analysis of the Beacon Chain through the lens of our 5 metrics. In this notebook, we take a look at epochs 39121 - 42211 ( May 24th, 8:54AM GMT to June 7th, 2:30AM GMT). As always we start off with collecting data and processing the data.</p>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <details><summary>Input 9 (click to open)</summary>
@@ -962,7 +962,7 @@ if (outputEl) {{
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As we see from the plot and the statistics above, the proposed block counts for most epochs continues to be 32. This shows that overall the network is performing well. However this time the frequency with which the number of proposed blocks fell down to 29-30 is more and there was even one epoch when this number fell down to 27.</p>
+<p>As we see from the plot and the statistics above, the proposed block counts for most epochs continues to be 32. This shows that overall the network is performing well. However, this time the frequency with which the number of proposed blocks fell down to 29-30 is higher and there was even one epoch when this number fell down to 27.</p>
 <p>The network also seems to have performed "worse" in the period between epoch 41100 to 41500 and epoch 39500 to 39900 and "better" in the period between epoch 40300 to 40700.</p>
 
 </div>
@@ -1322,7 +1322,7 @@ let authorData = ["shyam"];
     ReactDOM.render(
       e(
         Footer, {
-          acknowledgements: 'A huge thank you to Barnabé Monnot for all his very valuable insights and suggestions and his continued support for Beacon Digest. Another huge thank you to Stefanos Leonardos and Georgios Piliouras for intriducing me to the idea of Oceanic Games and its applications in Blockchains. I would also like to express my gratitude to the team at The University of Warwick for making their software ssocean free and open source.',
+          acknowledgements: 'A huge thank you to Barnabé Monnot for all his very valuable insights and suggestions and his continued support for Beacon Digest. Another huge thank you to Stefanos Leonardos and Georgios Piliouras for introducing me to the idea of Oceanic Games and its applications in Blockchains. I would also like to express my gratitude to the team at The University of Warwick for making their software ssocean free and open source.',
         }
       ),
       document.querySelector("#footer")
