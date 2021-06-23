@@ -4,3 +4,5 @@ venv
 .DS_Store
 .vscode/
 env/
+*.csv
+*.txt
