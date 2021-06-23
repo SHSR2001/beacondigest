@@ -6,3 +6,9 @@ venv
 env/
 *.csv
 *.txt
+.vs/beacondigest/config/applicationhost.config
+.vs/beacondigest/v16/.suo
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+default.html5
