@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>The Beacon Digest</title>
+  <meta property="og:title" content="Beacon digest" />
+  <meta property="og:url" content="https://shsr2001.github.io/beacondigest" />
+  <meta property="og:image" content="https://shsr2001.github.io/beacondigest/static/og_image.png" />
+  <meta property="og:description" content="Explorations of the beacon chain" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Beacon digest">
+  <meta name="twitter:description" content="Explorations of the beacon chain">
+  <meta name="twitter:image" content="https://shsr2001.github.io/beacondigest/static/og_image.png">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js" type="text/javascript"></script>
+  <script src="https://ethereum.github.io/rig/static/react.development.js"></script>
+  <script src="https://ethereum.github.io/rig/static/react-dom.development.js"></script>
+  <script src="https://ethereum.github.io/rig/static/component-library.js"></script>
+  <script src="https://ethereum.github.io/rig/static/header.js"></script>
+  <script src="https://ethereum.github.io/rig/static/footer.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://ethereum.github.io/rig/static/index.css"/>
+</head>
+<body>
+<div id="header"></div>
+  <script>
+  ReactDOM.render(
+    e(Header, null),
+    document.querySelector("#header")
+  );
+  </script>
+  <div class="article-container">
+    <div class="document-container">
+      <div class="title-container">
+                  <div class="title">
+            The Beacon Digest
+          </div>
+        
+              </div>
+                        <h1 id="beacon-digest">Beacon Digest</h1>
+                        <p>Here you can find the fortnightly issues of Beacon Digest.</p>
+                        <h2 id="issues">Issues</h2>
+                        <ul>
+                        <li><a href="https://shsr2001.github.io/beacondigest/notebooks/2021/05/24/digest.html">May 24th</a> + <a href="notebooks/2021/05/24/digest.ipynb">source</a></li>
+                        <li><a href="https://shsr2001.github.io/beacondigest/notebooks/2021/06/07/oceanic.html">June 7th</a> + <a href="notebooks/2021/06/07/oceanic.ipynb">source</a></li>
+                        <li><a href="https://shsr2001.github.io/beacondigest/notebooks/2021/06/21/oceanic2.html">June 21st</a> + <a href="notebooks/2021/06/21/oceanic2.ipynb">source</a></li>
+                        </ul>
+                        <h2 id="running-the-notebooks">Running the notebooks</h2>
+                        <p>Start of by running the following commands in your terminal</p>
+                        <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash">
+<span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/SHSR2001/beacondigest</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> beacondigest</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">###</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: use a virtual environment</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv env</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Unix</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> env/bin/activate</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span><span class="dt">\e</span>nv<span class="dt">\S</span>cripts<span class="dt">\a</span>ctivate</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">###</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> labextension install jupyterlab-plotly@4.14.3</span></code></pre></div>
+                        <p>Run the following command once you enter the shell</p>
+                        <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre></div>
+                        <p>You can now run any notebook of your choice to reproduce the results</p>
+      </body>
+</html>
