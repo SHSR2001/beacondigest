@@ -12,3 +12,4 @@ env/
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
 default.html5
+notebooks/2021/07/05/recurring_file.ipynb
