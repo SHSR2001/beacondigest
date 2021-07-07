@@ -7,6 +7,7 @@ Here you can find the fortnightly issues of Beacon Digest. These are open resear
 - [May 24th](https://shsr2001.github.io/beacondigest/notebooks/2021/05/24/digest.html) + [source](notebooks/2021/05/24/digest.ipynb)
 - [June 7th](https://shsr2001.github.io/beacondigest/notebooks/2021/06/07/oceanic.html) + [source](notebooks/2021/06/07/oceanic.ipynb)
 - [June 21st](https://shsr2001.github.io/beacondigest/notebooks/2021/06/21/oceanic2.html) + [source](notebooks/2021/06/21/oceanic2.ipynb)
+- [July 5th](https://shsr2001.github.io/beacondigest/notebooks/2021/07/05/staking_pools.html) + [source](notebooks/2021/07/05/staking_pools.ipynb)
 
 ## Running the notebooks
 
