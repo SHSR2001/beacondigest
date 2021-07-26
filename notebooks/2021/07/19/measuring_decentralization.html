@@ -1796,7 +1796,7 @@ $$ H = \sum_{i=1}^{N} s_{i}^2 $$<p>where $s_{i}$ is the percentage of ETH staked
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-  <p>The score is now within the range of 0.15 to 0.25 (tending more towards the side of 0.15) indicating moderate concentration of power among a few select entities. In such a system collusions are expected to raise concerns that the system is not competitive enough.</p>
+  <p>Mathematically finding the HHI Index by taking 10 of the largest staking entities would given a lowest possible value of 0.1. The score we get by applying this to PoS Ethereum is around 0.178, which is not too far from the minimum.</p>
 
 </div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -2316,7 +2316,7 @@ let authorData = ["shyam"];
     ReactDOM.render(
       e(
         Footer, {
-          acknowledgements: 'A huge thank you to ',
+          acknowledgements: 'A huge thank you to [Vitalik Buterin](https://twitter.com/VitalikButerin) and Dr.Stefanos Leonardos for their insightful notes and comments. As always, a big thanks to [Barnabé Monnot](https://twitter.com/barnabemonnot) for his reviews and continued support for the project.',
         }
       ),
       document.querySelector("#footer")
