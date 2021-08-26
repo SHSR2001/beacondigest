@@ -9,6 +9,7 @@ Here you can find the fortnightly issues of Beacon Digest. These are open resear
 - [June 21st](https://shsr2001.github.io/beacondigest/notebooks/2021/06/21/oceanic2.html) + [source](notebooks/2021/06/21/oceanic2.ipynb)
 - [July 5th](https://shsr2001.github.io/beacondigest/notebooks/2021/07/05/staking_pools.html) + [source](notebooks/2021/07/05/staking_pools.ipynb)
 - [July 19th](https://shsr2001.github.io/beacondigest/notebooks/2021/07/19/measuring_decentralization.html) + [source](notebooks/2021/07/19/measuring_decentralization.ipynb)
+- [August 26th](https://shsr2001.github.io/beacondigest/notebooks/2021/08/23/beacon_incident.html) + [source](notebooks/2021/08/23/beacon_incident.ipynb)
 
 ## Running the notebooks
 
