@@ -1,0 +1,49 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{graphicx,pgfplots,pgfplotstable}
+\begin{document}
+\pgfplotsset{
+  scaled x ticks=false,
+  x tick label style={
+        /pgf/number format/.cd,
+            fixed,
+            fixed zerofill,
+            precision=0,
+        /tikz/.cd
+    },
+  log x ticks with fixed point/.style={
+            xticklabel={
+                \pgfkeys{/pgf/fpu=true}
+                \pgfmathparse{exp(\tick)}%
+                \pgfmathprintnumber[fixed,precision=0]{\pgfmathresult}
+                \pgfkeys{/pgf/fpu=false}
+            },
+        },
+}
+\begin{tikzpicture}[scale=0.6]
+\begin{axis}[
+	xmajorgrids=true, 
+	ymajorgrids=true, 
+	grid style={
+		line width=.1pt, 
+		draw=gray!10
+	}, 
+	xtick pos=left,
+	ytick pos=left,
+	xlabel=$\#$blocks after $l$,
+	ylabel=gas price (Gwei),
+	xmin=0,
+	xmax=450,
+	ymin=0,
+	xtick distance=150,
+	ytick distance=250,
+%	xticklabels={2010, , 2012, , 2014, , 2016, , 2018, , 2020},
+	width=8cm,
+	legend style={at={(0.98,0.98)}, anchor=north east},
+]
+\addplot+[mark=none] table[x expr= \thisrow{block_number}-13025550,y=avg_gas_price,col sep=comma] {avg_price_burst.csv};
+\addplot+[mark=diamond,mark options={scale=0.25},draw=brown!75!black] table[x expr=   \thisrow{block_number}-13025550,y=basefee,col sep=comma] {avg_basefee_burst.csv};
+\legend{\large avg. price, \large base fee}
+\end{axis}
+\end{tikzpicture}
+\end{document}

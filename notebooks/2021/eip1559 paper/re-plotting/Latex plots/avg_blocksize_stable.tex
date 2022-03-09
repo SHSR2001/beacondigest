@@ -1,0 +1,49 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{graphicx,pgfplots,pgfplotstable}
+\begin{document}
+\pgfplotsset{
+  scaled x ticks=false,
+  x tick label style={
+        /pgf/number format/.cd,
+            fixed,
+            fixed zerofill,
+            precision=0,
+        /tikz/.cd
+    },
+  log x ticks with fixed point/.style={
+            xticklabel={
+                \pgfkeys{/pgf/fpu=true}
+                \pgfmathparse{exp(\tick)}%
+                \pgfmathprintnumber[fixed,precision=0]{\pgfmathresult}
+                \pgfkeys{/pgf/fpu=false}
+            },
+        },
+}
+\begin{tikzpicture}[scale=0.6]
+\begin{axis}[
+	xmajorgrids=true, 
+	ymajorgrids=true, 
+	grid style={
+		line width=.1pt, 
+		draw=gray!10
+	}, 
+	xtick pos=left,
+	ytick pos=left,
+	xlabel=$\#$blocks after $l$,
+	ylabel= block size (relative to max.),
+	xmin=450,
+	xmax=900,
+	ymin=0,
+	ymax=1.35,
+	xtick distance = 150,
+	ytick distance=0.2,
+	width=8cm,
+	legend style={at={(0.98,0.98)}, anchor=north east},
+]
+\addplot+[mark=none,draw=green!50!black] table[x expr= \thisrow{block_number}-13025550,y=avg_block_size,col sep=comma] {avg_blocksize_stable.csv};
+\addplot+[mark=square*,mark options={scale=0.125}] table[x expr= \thisrow{block}-13025550,y=value,col sep=comma] {avg_blocksize_stable_smoothed.csv};
+\legend{\large block size,\large smoothed}
+\end{axis}
+\end{tikzpicture}
+\end{document}

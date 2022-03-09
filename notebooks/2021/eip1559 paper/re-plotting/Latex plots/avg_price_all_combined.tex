@@ -1,0 +1,51 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{graphicx,pgfplots,pgfplotstable}
+\begin{document}
+\pgfplotsset{
+  scaled x ticks=false,
+  x tick label style={
+        /pgf/number format/.cd,
+            fixed,
+            fixed zerofill,
+            precision=0,
+        /tikz/.cd
+    },
+  log x ticks with fixed point/.style={
+            xticklabel={
+                \pgfkeys{/pgf/fpu=true}
+                \pgfmathparse{exp(\tick)}%
+                \pgfmathprintnumber[fixed,precision=0]{\pgfmathresult}
+                \pgfkeys{/pgf/fpu=false}
+            },
+        },
+}
+\begin{tikzpicture}[scale=0.6]
+\begin{axis}[
+	xmajorgrids=true, 
+	ymajorgrids=true, 
+	grid style={
+		line width=.1pt, 
+		draw=gray!10
+	}, 
+	xtick pos=left,
+	ytick pos=left,
+	xlabel=$\#$blocks after $l$,
+	ylabel=gas price (Gwei),
+	xmin=0,
+	xmax=145000,
+	ymin=0,
+	ymax=1000,
+	ytick distance=100,
+	xtick={0, 30000, 60000, 90000, 120000},
+	xticklabels={0, 30k, 60k, 90k, 120k},
+	width=8cm,
+	legend style={at={(0.98,0.98)}, anchor=north east},
+]
+\addplot+[mark=none] table[x expr= \thisrow{block_number}-12935000,y=avg_gas_price,col sep=comma] {avg_price_all.csv};
+\addplot+[mark=square*,mark options={scale=0.125}] table[x expr= \thisrow{block}-12935000,y=value,col sep=comma] {avg_price_all_smoothed.csv};
+\legend{\large avg. price,\large smoothed}
+\end{axis}
+\draw[thick,densely dashed] (1.3225,0) -- node[align=center,scale=0.5,above,pos=1] {\Large EIP-1559} (1.3225,4.5);
+\end{tikzpicture}
+\end{document}
